@@ -6,6 +6,7 @@ var uCase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'
 var lCase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 var charL;
 var selectedCrit;
+var finalPass = " "
 
 // This is selects which element will be linked to the event selector
 var generateBtn = document.querySelector("#generate");
@@ -16,7 +17,7 @@ var generateBtn = document.querySelector("#generate");
 // value from JS to the web page
 function writePassword() {
   var criteria = passCriteria();
-  var char = characterType();
+  var char = charType();
   var passwordText = document.querySelector("#password");
   if (criteria && char){
     var password = generatePassword();
@@ -44,22 +45,31 @@ function passCriteria() {
     alert('Must be between 8 and 128 characters')
     return null;
   }
+  return true;
 }
-function characterType(){
+function charType(){
   if (confirm('Include Lowercase')){
     selectedCrit =  selectedCrit.concat(lCase);
+    var select = Math.floor(Math.random() * lCase.length);
+      finalPass += lCase[select];
   }
 
   if(confirm('Include Uppercase')){
     selectedCrit =  selectedCrit.concat(uCase);
-    }
+    var select = Math.floor(Math.random() * uCase.length);
+      finalPass += uCase[select];
+  }
 
   if(confirm('Include Numerics')){
     selectedCrit =  selectedCrit.concat(num);
+    var select = Math.floor(Math.random() * num.length);
+      finalPass += num[select];
   }
 
   if(confirm('Include Special Characters')){
     selectedCrit =  selectedCrit.concat(specChac);
+    var select = Math.floor(Math.random() * specChac.length);
+      finalPass += specChac[select];
   }
   return;
 }
@@ -70,11 +80,11 @@ function characterType(){
 //That info is then returned and sent to the write password function
 function generatePassword(){
   var result = '';
-  for ( var i = 0; i < charL; i++ ) {
+  for ( var i = 0; i < charL - finalPass.length; i++ ) {
       var select = Math.floor(Math.random() * selectedCrit.length);
       result += selectedCrit[select];
   }  
-  return result;
+  return finalPass + result;
 }
 
 // Add event listener to generate button
