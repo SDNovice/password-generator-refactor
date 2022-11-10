@@ -71,7 +71,7 @@ function charType(){
     var select = Math.floor(Math.random() * specChac.length);
       finalPass += specChac[select];
   }
-  return;
+  return true;
 }
 
 // This function takes the given prompts and confirms
