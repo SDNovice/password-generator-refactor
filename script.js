@@ -4,6 +4,8 @@ var specChac = ['/','!','@','#', '.', '?', '&','*','$',"-"];
 var num = ['1','2','3','4','5','6','7','8','9','0']
 var uCase = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 var lCase = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+var charL;
+var selectedCrit;
 
 // This is selects which element will be linked to the event selector
 var generateBtn = document.querySelector("#generate");
@@ -14,12 +16,13 @@ var generateBtn = document.querySelector("#generate");
 // value from JS to the web page
 function writePassword() {
   var criteria = passCriteria();
+  var char = characterType();
   var passwordText = document.querySelector("#password");
-  if (criteria){
+  if (criteria && char){
     var password = generatePassword();
     passwordText.value = password;
   }else{
-    passwordText.value = ""
+    alert('Please select at least one character')
   }
 }
 
@@ -41,7 +44,8 @@ function passCriteria() {
     alert('Must be between 8 and 128 characters')
     return null;
   }
-
+}
+function characterType(){
   if (confirm('Include Lowercase')){
     selectedCrit =  selectedCrit.concat(lCase);
   }
@@ -57,7 +61,7 @@ function passCriteria() {
   if(confirm('Include Special Characters')){
     selectedCrit =  selectedCrit.concat(specChac);
   }
-  return true;
+  return;
 }
 
 // This function takes the given prompts and confirms
@@ -75,5 +79,5 @@ function generatePassword(){
 
 // Add event listener to generate button
 
-// This activates all of our functions.
+// This activates all of our functions
 generateBtn.addEventListener("click", writePassword);
